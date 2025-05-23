@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Form Styling */
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        form input[type="number"],
+        form select,
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        form input[type="number"]:focus,
+        form select:focus,
+        form button:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Student List Styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #fff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
+
+        ul li:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        ul li span {
+            font-weight: bold;
+        }
+
+        ul li:not(:last-child) {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* Empty message styling */
+        ul li.no-students {
+            color: #777;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Filter Form -->
+        <form method="GET">
+            <label for="min_marks">Min Marks:</label>
+            <input type="number" name="min_marks" id="min_marks" value="{{ request.GET.min_marks }}">
+
+            <label for="max_marks">Max Marks:</label>
+            <input type="number" name="max_marks" id="max_marks" value="{{ request.GET.max_marks }}">
+
+            <label for="sort_by">Sort By:</label>
+            <select name="sort_by" id="sort_by">
+                <option value="name" {% if request.GET.sort_by == 'name' %}selected{% endif %}>Name</option>
+                <option value="marks" {% if request.GET.sort_by == 'marks' %}selected{% endif %}>Marks</option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- Displaying the list of students -->
+        <ul>
+            {% for student in students %}
+                <li>{{ student.name }} - {{ student.marks }}</li>
+            {% empty %}
+                <li class="no-students">No students found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

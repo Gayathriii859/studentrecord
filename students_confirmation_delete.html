@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #dc3545;
+        }
+        p {
+            margin: 20px 0;
+        }
+        button,
+        .cancel {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            margin: 5px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button {
+            background-color: #dc3545;
+        }
+        .cancel {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Delete Student</h2>
+        <p>Are you sure you want to delete <strong>{{ student.name }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete</button>
+            <a href="{% url 'student_list' %}" class="cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
+
